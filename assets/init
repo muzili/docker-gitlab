@@ -287,6 +287,8 @@ case "${LDAP_UID}" in
   *) LDAP_ALLOW_USERNAME_OR_EMAIL_LOGIN=${LDAP_ALLOW_USERNAME_OR_EMAIL_LOGIN:-true}
 esac
 
+if [[ ! -f $GITLAB_INSTALL_DIR/docker-configured ]]; then
+    
 if [ ! -e ${GITLAB_DATA_DIR}/ssh/ssh_host_rsa_key ]; then
   # create ssh host keys and move them to the data store.
   dpkg-reconfigure openssh-server
@@ -634,6 +636,8 @@ chmod 700 ${GITLAB_DATA_DIR}/.ssh
 chmod 600 ${GITLAB_DATA_DIR}/.ssh/authorized_keys
 chown -R git:git ${GITLAB_DATA_DIR}/.ssh
 
+touch $GITLAB_INSTALL_DIR/docker-configured
+fi
 appStart () {
   # due to the nature of docker and its use cases, we allow some time
   # for the database server to come online.
