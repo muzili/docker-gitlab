@@ -20,12 +20,12 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E1DF1F24 \
  && gem install --no-document bundler \
  && rm -rf /var/lib/apt/lists/* # 20140918
 
-COPY assets/setup/ /app/setup/
+ADD assets/setup/ /app/setup/
 RUN chmod 755 /app/setup/install
 RUN /app/setup/install
 
-COPY assets/config/ /app/setup/config/
-COPY assets/init /app/init
+ADD assets/config/ /app/setup/config/
+ADD assets/init /app/init
 RUN chmod 755 /app/init
 
 EXPOSE 22
